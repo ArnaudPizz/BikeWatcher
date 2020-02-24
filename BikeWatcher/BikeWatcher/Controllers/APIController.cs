@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace BikeWatcher.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
+
     public class APIController : Controller
     {
         private static readonly HttpClient client = new HttpClient();
@@ -19,9 +19,15 @@ namespace BikeWatcher.Controllers
         public async Task<IActionResult> Index()
         {
             var Bikepoints = await ProcessAPI();
-            ViewBag.allStations = Bikepoints;
-            return View();
+            return View(Bikepoints.OrderBy(x => x.name).ToList());
         }
+
+        public async Task<IActionResult> Map()
+        {
+            var Bikepoints = await ProcessAPI();
+            return View(Bikepoints.OrderBy(x => x.name).ToList());
+        }
+
 
         private static async Task<List<BikePoints>> ProcessAPI()
         {

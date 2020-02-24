@@ -1,7 +1,4 @@
-﻿
-@{
-    var datas = ViewBag.allStations;
-}
+﻿@model List<BikePoints>
 <!-- Coloring  -->
 
     <style>
@@ -12,14 +9,14 @@
             color: red;
         }
     </style>
-    @foreach (var data in datas)
+    @foreach (var data in Model)
     {
         <ul class="list-group">
-            <li class="list-group-item">Station : @data.name</li>
-            <li class="list-group-item status-@data.status">Statut :@data.status</li>
-
-
-            <li class="list-group-item">Adresse : @data.address</li>
+            <li class="list-group-item">
+                <p class="text-center display-4 font-weight-bold">Station : @data.name</p>
+                <p class="status-@data.status">Statut :@data.status</p>
+                <p>Adresse : @data.address</p>
+            </li>
         </ul>
 
     }
