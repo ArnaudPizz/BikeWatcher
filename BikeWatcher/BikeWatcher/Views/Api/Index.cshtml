@@ -1,0 +1,28 @@
+﻿
+@{
+    var datas = ViewBag.allStations;
+}
+<!-- Coloring  -->
+
+    <style>
+        .status-OPEN {
+            color: green;
+        }
+        .status-CLOSED {
+            color: red;
+        }
+    </style>
+    @foreach (var data in datas)
+    {
+        <ul class="list-group">
+            <li class="list-group-item">Station : @data.name</li>
+            <li class="list-group-item status-@data.status">Statut :@data.status</li>
+
+
+            <li class="list-group-item">Adresse : @data.address</li>
+        </ul>
+
+    }
+    
+}
+
