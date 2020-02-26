@@ -1,17 +1,19 @@
 ﻿
 @model List<BikePoints>
 
-<head>
-    <meta charset="utf-8">
-    <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
-    <style type="text/css">
-        #map {
-            height: 800px;
-        }
-    </style>
-    <title>Carte</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+        <style type="text/css">
+            #map {
+                height: 800px;
+            }
+        </style>
+        <title>Carte</title>
+    </head>
 
 <div id="map">
     <!-- Empty div for the map -->
@@ -19,12 +21,14 @@
 
 <!-- Fichiers Javascript -->
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
 <script type="text/javascript">
     // Setting a default position
-    var latitude_user = 43.300000;
-    var longitude_user = 5.400000;
+    var latitude_user = 44.8333;
+    var longitude_user = -0.5667;
     var macarte = null;
-    
+    var markerCluster;
+
     // Getting bike stations
     var villes = [
         @foreach (var data in Model)
@@ -34,11 +38,12 @@
                 "lat":@data.lat,
                 "lgn":@data.lng,
                 "status":"@data.status",
-                "available_bike":"@data.available_bikes",
+            "available_bike": "@data.available_bikes",
+
             },</text>
 
         }
-        ];
+    ];
     //console.log(villes);
 
     // Initlializing map
@@ -46,28 +51,29 @@
 
 	    // Setting the map with user coordinates
 	    macarte = L.map('map').setView([latitude_user, longitude_user], 11);
-	    // Setting server for Leaflet
+        // Setting server for Leaflet
 	    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
 		    attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
-		    minZoom: 1 ,
+		    minZoom: 11,
 		    maxZoom: 20
         }).addTo(macarte);
 
-        /*var marker_user =
-            L.marker(latitude_user, longitude_user).addTo(macarte);
-            marker.bindPopup("Vous êtes ici");*/
+        //Setting variable to group markers
+        var markerCluster = L.markerClusterGroup();
 
-        //Adding marker for each station 
+        //Adding marker for each station
 	    for (ville in villes) {
             var marker =
-                L.marker([villes[ville].lat, villes[ville].lgn]).addTo(macarte);
+                L.marker([villes[ville].lat, villes[ville].lgn]);
                 marker.bindPopup
                     (
                     [villes[ville].name] +
                     "<ul><li>" + [villes[ville].status] + "</li>" +
                     "<li>" + [villes[ville].available_bike] + "</li></ul>"
-                    );
-	    }
+            );
+            markerCluster.addLayer(marker);
+        }
+        macarte.addLayer(markerCluster);
     }
 
 
@@ -83,7 +89,7 @@
             initMap();
         }
 
-        
+
     };
 </script>
 

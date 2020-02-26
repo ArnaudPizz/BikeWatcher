@@ -27,7 +27,11 @@ namespace BikeWatcher.Controllers
         public async Task<IActionResult> Map()
         {
             var Bikepoints = await ProcessAPI();
-            return View(Bikepoints.OrderBy(x => x.name).ToList());
+            var stationBdx = await ProcessAPIBDX();
+            //Bikepoints.Concat(stationBdx);
+            Bikepoints.AddRange(stationBdx);
+            Console.Write(Bikepoints);
+            return View(Bikepoints.ToList());
         }
 
 
