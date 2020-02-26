@@ -1,25 +1,29 @@
 ﻿@model List<BikePoints>
 <!-- Coloring  -->
-
-    <style>
-        .status-OPEN {
-            color: green;
-        }
-        .status-CLOSED {
-            color: red;
-        }
-    </style>
-    @foreach (var data in Model)
-    {
-        <ul class="list-group">
-            <li class="list-group-item">
-                <p class="text-center display-4 font-weight-bold">Station : @data.name</p>
-                <p class="status-@data.status">Statut :@data.status</p>
-                <p>Adresse : @data.address</p>
-            </li>
-        </ul>
-
+<style>
+    .status-OPEN {
+        color: green;
     }
-    
+
+    .status-CLOSED {
+        color: red;
+    }
+</style>
+
+<a class="btn btn-dark" asp-area="" asp-controller="API" asp-action="BDX">Bordeaux</a>
+<!-- Getting data and displaying stations-->
+@foreach (var data in Model)
+{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <p class="text-center display-4 font-weight-bold">Station : @data.name</p>
+            <p class="status-@data.status">Statut :@data.status</p>
+            <p>Adresse : @data.address</p>
+            <p>Nombre de vélos : @data.available_bikes</p>
+        </li>
+    </ul>
+
+}
+
 }
 

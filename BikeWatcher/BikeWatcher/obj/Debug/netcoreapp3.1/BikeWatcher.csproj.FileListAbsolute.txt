@@ -108,3 +108,4 @@ C:\Users\Utilisateur\Desktop\Ynov Local\B2\.NET\BikeWatcher\BikeWatcher\obj\Debu
 C:\Users\Utilisateur\Desktop\Ynov Local\B2\.NET\BikeWatcher\BikeWatcher\obj\Debug\netcoreapp3.1\BikeWatcher.dll
 C:\Users\Utilisateur\Desktop\Ynov Local\B2\.NET\BikeWatcher\BikeWatcher\obj\Debug\netcoreapp3.1\BikeWatcher.pdb
 C:\Users\Utilisateur\Desktop\Ynov Local\B2\.NET\BikeWatcher\BikeWatcher\obj\Debug\netcoreapp3.1\BikeWatcher.csprojAssemblyReference.cache
+C:\Users\Utilisateur\Desktop\Ynov Local\B2\.NET\BikeWatcher\BikeWatcher\obj\Debug\netcoreapp3.1\Razor\Views\Api\BDX.cshtml.g.cs
